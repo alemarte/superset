@@ -34,10 +34,12 @@ export const LOG_ACTIONS_PERIODIC_RENDER_DASHBOARD =
 export const LOG_ACTIONS_EXPLORE_DASHBOARD_CHART = 'explore_dashboard_chart';
 export const LOG_ACTIONS_EXPORT_CSV_DASHBOARD_CHART =
   'export_csv_dashboard_chart';
+export const LOG_ACTIONS_EXPORT_XLSX_DASHBOARD_CHART =
+  'export_xlsx_dashboard_chart';
 export const LOG_ACTIONS_EXPORT_JSON_DASHBOARD_CHART =
   'export_json_dashboard_chart';
 export const LOG_ACTIONS_EXPORT_XML_DASHBOARD_CHART =
-  'export_json_dashboard_chart';
+  'export_xml_dashboard_chart';
 export const LOG_ACTIONS_CHANGE_DASHBOARD_FILTER = 'change_dashboard_filter';
 export const LOG_ACTIONS_OMNIBAR_TRIGGERED = 'omnibar_triggered';
 

@@ -75,6 +75,7 @@ const MENU_KEYS = {
   TOGGLE_CHART_DESCRIPTION: 'toggle_chart_description',
   EXPLORE_CHART: 'explore_chart',
   EXPORT_CSV: 'export_csv',
+  EXPORT_XLSX: 'export_xlsx',
   EXPORT_JSON: 'export_json',
   EXPORT_XML: 'export_xml',
   RESIZE_LABEL: 'resize_label',
@@ -160,6 +161,9 @@ class SliceHeaderControls extends React.PureComponent {
         break;
       case MENU_KEYS.EXPORT_CSV:
         this.props.exportCSV(this.props.slice.slice_id);
+        break;
+      case MENU_KEYS.EXPORT_XLSX:
+        this.props.exportXLSX(this.props.slice.slice_id);
         break;
       case MENU_KEYS.EXPORT_JSON:
         this.props.exportJSON(this.props.slice.slice_id);
@@ -310,6 +314,9 @@ class SliceHeaderControls extends React.PureComponent {
         )}
         {this.props.supersetCanCSV && (
           <Menu.Item key={MENU_KEYS.EXPORT_CSV}>{t('Export CSV')}</Menu.Item>
+        )}
+        {this.props.supersetCanCSV && (
+          <Menu.Item key={MENU_KEYS.EXPORT_XLSX}>{t('Export XLSX')}</Menu.Item>
         )}
         {this.props.supersetCanCSV && (
           <Menu.Item key={MENU_KEYS.EXPORT_XML}>{t('Export XML')}</Menu.Item>

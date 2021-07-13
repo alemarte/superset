@@ -21,6 +21,7 @@ from io import BytesIO
 from typing import Any, Dict
 from zipfile import ZipFile
 
+import pandas as pd
 import simplejson
 import dicttoxml
 from flask import g, make_response, redirect, request, Response, send_file, url_for
@@ -83,7 +84,7 @@ from superset.views.base_api import (
     RelatedFieldFilter,
     statsd_metrics,
 )
-from superset.views.core import CsvResponse, XmlResponse, generate_download_headers
+from superset.views.core import CsvResponse, XmlResponse, XlsxResponse, generate_download_headers
 from superset.views.filters import FilterRelatedOwners
 
 logger = logging.getLogger(__name__)
@@ -487,10 +488,21 @@ class ChartRestApi(BaseSupersetModelRestApi):
             data = result["queries"][0]["data"]
             return CsvResponse(data, headers=generate_download_headers("csv"))
 
+        if result_format == ChartDataResultFormat.XLSX:
+            # return the first result
+            data = result["queries"][0]["data"]
+            df = pd.DataFrame(data)
+            output = BytesIO()
+            writer = pd.ExcelWriter(output)
+            df.to_excel(writer)  # plus any **kwargs
+            writer.save()
+            processed_data = output.getvalue()
+            return XlsxResponse(processed_data, headers=generate_download_headers("xlsx"))
+
         if result_format == ChartDataResultFormat.XML:
             # Verify user has permission to export XML file
-            if not security_manager.can_access("can_csv", "Superset"):
-                return self.response_403()
+            # if not security_manager.can_access("can_csv", "Superset"):
+            #    return self.response_403()
 
             # return the first result
             data = result["queries"][0]["data"]

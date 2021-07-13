@@ -31,6 +31,7 @@ import {
   LOG_ACTIONS_EXPLORE_DASHBOARD_CHART,
   LOG_ACTIONS_EXPORT_CSV_DASHBOARD_CHART,
   LOG_ACTIONS_EXPORT_JSON_DASHBOARD_CHART,
+  LOG_ACTIONS_EXPORT_XLSX_DASHBOARD_CHART,
   LOG_ACTIONS_EXPORT_XML_DASHBOARD_CHART,
   LOG_ACTIONS_FORCE_REFRESH_CHART,
 } from '../../../logger/LogUtils';
@@ -110,6 +111,7 @@ export default class Chart extends React.Component {
     this.handleFilterMenuClose = this.handleFilterMenuClose.bind(this);
     this.exploreChart = this.exploreChart.bind(this);
     this.exportCSV = this.exportCSV.bind(this);
+    this.exportXLSX = this.exportXLSX.bind(this);
     this.exportJSON = this.exportJSON.bind(this);
     this.exportXML = this.exportXML.bind(this);
     this.forceRefresh = this.forceRefresh.bind(this);
@@ -233,6 +235,18 @@ export default class Chart extends React.Component {
     });
   }
 
+  exportXLSX() {
+    this.props.logEvent(LOG_ACTIONS_EXPORT_XLSX_DASHBOARD_CHART, {
+      slice_id: this.props.slice.slice_id,
+      is_cached: this.props.isCached,
+    });
+    exportChart({
+      formData: this.props.formData,
+      resultType: 'results',
+      resultFormat: 'xlsx',
+    });
+  }
+
   exportJSON() {
     this.props.logEvent(LOG_ACTIONS_EXPORT_JSON_DASHBOARD_CHART, {
       slice_id: this.props.slice.slice_id,
@@ -340,6 +354,7 @@ export default class Chart extends React.Component {
           annotationQuery={chart.annotationQuery}
           exploreChart={this.exploreChart}
           exportCSV={this.exportCSV}
+          exportXLSX={this.exportXLSX}
           exportJSON={this.exportJSON}
           exportXML={this.exportXML}
           updateSliceName={updateSliceName}
