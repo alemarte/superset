@@ -33,6 +33,7 @@ import { getActiveFilters } from 'src/dashboard/util/activeDashboardFilters';
 import { FeatureFlag, isFeatureEnabled } from 'src/featureFlags';
 import CrossFilterScopingModal from 'src/dashboard/components/CrossFilterScopingModal/CrossFilterScopingModal';
 import Icons from 'src/components/Icons';
+import downloadAsPDF from '../../../utils/downloadAsPDF';
 
 const propTypes = {
   slice: PropTypes.object.isRequired,
@@ -191,7 +192,7 @@ class SliceHeaderControls extends React.PureComponent {
           '.ant-dropdown:not(.ant-dropdown-hidden)',
         );
         menu.style.visibility = 'hidden';
-        downloadAsImage(
+        downloadAsPDF(
           SCREENSHOT_NODE_SELECTOR,
           this.props.slice.slice_name,
         )(domEvent).then(() => {
