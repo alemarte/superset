@@ -78,6 +78,7 @@ const MENU_KEYS = {
   EXPORT_XML: 'export_xml',
   RESIZE_LABEL: 'resize_label',
   DOWNLOAD_AS_IMAGE: 'download_as_image',
+  DOWNLOAD_AS_PDF: 'download_as_pdf',
 };
 
 const VerticalDotsContainer = styled.div`
@@ -169,6 +170,21 @@ class SliceHeaderControls extends React.PureComponent {
         this.props.handleToggleFullSize();
         break;
       case MENU_KEYS.DOWNLOAD_AS_IMAGE: {
+        // menu closes with a delay, we need to hide it manually,
+        // so that we don't capture it on the screenshot
+        const menu = document.querySelector(
+          '.ant-dropdown:not(.ant-dropdown-hidden)',
+        );
+        menu.style.visibility = 'hidden';
+        downloadAsImage(
+          SCREENSHOT_NODE_SELECTOR,
+          this.props.slice.slice_name,
+        )(domEvent).then(() => {
+          menu.style.visibility = 'visible';
+        });
+        break;
+      }
+      case MENU_KEYS.DOWNLOAD_AS_PDF: {
         // menu closes with a delay, we need to hide it manually,
         // so that we don't capture it on the screenshot
         const menu = document.querySelector(
@@ -283,6 +299,9 @@ class SliceHeaderControls extends React.PureComponent {
 
         <Menu.Item key={MENU_KEYS.DOWNLOAD_AS_IMAGE}>
           {t('Download as image')}
+        </Menu.Item>
+        <Menu.Item key={MENU_KEYS.DOWNLOAD_AS_PDF}>
+          {t('Download as PDF')}
         </Menu.Item>
 
         {this.props.supersetCanCSV && (
