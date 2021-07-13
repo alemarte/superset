@@ -54,6 +54,7 @@ const MENU_KEYS = {
   EDIT_PROPERTIES: 'edit_properties',
   RUN_IN_SQL_LAB: 'run_in_sql_lab',
   DOWNLOAD_AS_IMAGE: 'download_as_image',
+  DOWNLOAD_AS_PDF: 'download_as_pdf',
 };
 
 const CopyButtonViewQuery = styled(CopyButton)`
@@ -111,6 +112,15 @@ export const DisplayQueryButton = props => {
         onOpenInEditor(latestQueryFormData);
         break;
       case MENU_KEYS.DOWNLOAD_AS_IMAGE:
+        downloadAsImage(
+          '.panel-body > .chart-container',
+          // eslint-disable-next-line camelcase
+          slice?.slice_name ?? t('New chart'),
+          {},
+          true,
+        )(domEvent);
+        break;
+      case MENU_KEYS.DOWNLOAD_AS_PDF:
         downloadAsImage(
           '.panel-body > .chart-container',
           // eslint-disable-next-line camelcase
@@ -182,6 +192,9 @@ export const DisplayQueryButton = props => {
           )}
           <Menu.Item key={MENU_KEYS.DOWNLOAD_AS_IMAGE}>
             {t('Download as image')}
+          </Menu.Item>
+          <Menu.Item key={MENU_KEYS.DOWNLOAD_AS_PDF}>
+            {t('Download as Pdf')}
           </Menu.Item>
         </Menu>
       }
