@@ -40,7 +40,7 @@ type ActionButtonProps = {
 
 type ExploreActionButtonsProps = {
   actions: { redirectSQLLab: Function; openPropertiesModal: Function };
-  canDownloadCSV: boolean;
+  canDownload: boolean;
   chartStatus: string;
   latestQueryFormData: {};
   queriesResponse: {};
@@ -83,7 +83,7 @@ const ActionButton = (props: ActionButtonProps) => {
 const ExploreActionButtons = (props: ExploreActionButtonsProps) => {
   const {
     actions,
-    canDownloadCSV,
+    canDownload,
     chartStatus,
     latestQueryFormData,
     queriesResponse,
@@ -118,7 +118,7 @@ const ExploreActionButtons = (props: ExploreActionButtonsProps) => {
     }
   };
 
-  const doExportCSV = canDownloadCSV
+  const doExportCSV = canDownload
     ? exportChart.bind(this, {
         formData: latestQueryFormData,
         resultType: 'results',
@@ -126,7 +126,7 @@ const ExploreActionButtons = (props: ExploreActionButtonsProps) => {
       })
     : null;
 
-  const doExportXML = canDownloadCSV
+  const doExportXML = canDownload
     ? exportChart.bind(this, {
         formData: latestQueryFormData,
         resultType: 'results',
@@ -141,7 +141,7 @@ const ExploreActionButtons = (props: ExploreActionButtonsProps) => {
   });
 
   const exportToCSVClasses = cx('btn btn-default btn-sm', {
-    disabled: !canDownloadCSV,
+    disabled: !canDownload,
   });
 
   return (
