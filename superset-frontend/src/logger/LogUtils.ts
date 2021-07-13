@@ -36,6 +36,8 @@ export const LOG_ACTIONS_EXPORT_CSV_DASHBOARD_CHART =
   'export_csv_dashboard_chart';
 export const LOG_ACTIONS_EXPORT_JSON_DASHBOARD_CHART =
   'export_json_dashboard_chart';
+export const LOG_ACTIONS_EXPORT_XML_DASHBOARD_CHART =
+  'export_json_dashboard_chart';
 export const LOG_ACTIONS_CHANGE_DASHBOARD_FILTER = 'change_dashboard_filter';
 export const LOG_ACTIONS_OMNIBAR_TRIGGERED = 'omnibar_triggered';
 

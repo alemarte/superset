@@ -41,6 +41,7 @@ type SliceHeaderProps = {
   exploreChart?: Function;
   exportCSV?: Function;
   exportJSON?: Function;
+  exportXML?: Function;
   editMode?: boolean;
   isFullSize?: boolean;
   annotationQuery?: object;
@@ -77,6 +78,7 @@ const SliceHeader: FC<SliceHeaderProps> = ({
   exploreChart = () => ({}),
   exportCSV = () => ({}),
   exportJSON = () => ({}),
+  exportXML = () => ({}),
   editMode = false,
   annotationQuery = {},
   annotationError = {},
@@ -175,6 +177,7 @@ const SliceHeader: FC<SliceHeaderProps> = ({
               exploreChart={exploreChart}
               exportCSV={exportCSV}
               exportJSON={exportJSON}
+              exportXML={exportXML}
               supersetCanExplore={supersetCanExplore}
               supersetCanShare={supersetCanShare}
               supersetCanCSV={supersetCanCSV}

@@ -31,6 +31,7 @@ import {
   LOG_ACTIONS_EXPLORE_DASHBOARD_CHART,
   LOG_ACTIONS_EXPORT_CSV_DASHBOARD_CHART,
   LOG_ACTIONS_EXPORT_JSON_DASHBOARD_CHART,
+  LOG_ACTIONS_EXPORT_XML_DASHBOARD_CHART,
   LOG_ACTIONS_FORCE_REFRESH_CHART,
 } from '../../../logger/LogUtils';
 import { isFilterBox } from '../../util/activeDashboardFilters';
@@ -110,6 +111,7 @@ export default class Chart extends React.Component {
     this.exploreChart = this.exploreChart.bind(this);
     this.exportCSV = this.exportCSV.bind(this);
     this.exportJSON = this.exportJSON.bind(this);
+    this.exportXML = this.exportXML.bind(this);
     this.forceRefresh = this.forceRefresh.bind(this);
     this.resize = this.resize.bind(this);
     this.setDescriptionRef = this.setDescriptionRef.bind(this);
@@ -243,6 +245,18 @@ export default class Chart extends React.Component {
     });
   }
 
+  exportXML() {
+    this.props.logEvent(LOG_ACTIONS_EXPORT_XML_DASHBOARD_CHART, {
+      slice_id: this.props.slice.slice_id,
+      is_cached: this.props.isCached,
+    });
+    exportChart({
+      formData: this.props.formData,
+      resultType: 'results',
+      resultFormat: 'xml',
+    });
+  }
+
   forceRefresh() {
     this.props.logEvent(LOG_ACTIONS_FORCE_REFRESH_CHART, {
       slice_id: this.props.slice.slice_id,
@@ -327,6 +341,7 @@ export default class Chart extends React.Component {
           exploreChart={this.exploreChart}
           exportCSV={this.exportCSV}
           exportJSON={this.exportJSON}
+          exportXML={this.exportXML}
           updateSliceName={updateSliceName}
           sliceName={sliceName}
           supersetCanExplore={supersetCanExplore}
