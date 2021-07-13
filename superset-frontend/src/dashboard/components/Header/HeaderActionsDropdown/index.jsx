@@ -35,6 +35,7 @@ import downloadAsImage from 'src/utils/downloadAsImage';
 import getDashboardUrl from 'src/dashboard/util/getDashboardUrl';
 import { getActiveFilters } from 'src/dashboard/util/activeDashboardFilters';
 import { getUrlParam } from 'src/utils/urlUtils';
+import downloadAsPDF from '../../../../utils/downloadAsPDF';
 
 const propTypes = {
   addSuccessToast: PropTypes.func.isRequired,
@@ -82,6 +83,7 @@ const MENU_KEYS = {
   EDIT_PROPERTIES: 'edit-properties',
   EDIT_CSS: 'edit-css',
   DOWNLOAD_AS_IMAGE: 'download-as-image',
+  DOWNLOAD_AS_PDF: 'download-as-pdf',
   TOGGLE_FULLSCREEN: 'toggle-fullscreen',
 };
 
@@ -156,6 +158,21 @@ class HeaderActionsDropdown extends React.PureComponent {
         );
         menu.style.visibility = 'hidden';
         downloadAsImage(
+          SCREENSHOT_NODE_SELECTOR,
+          this.props.dashboardTitle,
+        )(domEvent).then(() => {
+          menu.style.visibility = 'visible';
+        });
+        break;
+      }
+      case MENU_KEYS.DOWNLOAD_AS_PDF: {
+        // menu closes with a delay, we need to hide it manually,
+        // so that we don't capture it on the screenshot
+        const menu = document.querySelector(
+          '.ant-dropdown:not(.ant-dropdown-hidden)',
+        );
+        menu.style.visibility = 'hidden';
+        downloadAsPDF(
           SCREENSHOT_NODE_SELECTOR,
           this.props.dashboardTitle,
         )(domEvent).then(() => {
@@ -302,6 +319,11 @@ class HeaderActionsDropdown extends React.PureComponent {
         {!editMode && (
           <Menu.Item key={MENU_KEYS.DOWNLOAD_AS_IMAGE}>
             {t('Download as image')}
+          </Menu.Item>
+        )}
+        {!editMode && (
+          <Menu.Item key={MENU_KEYS.DOWNLOAD_AS_PDF}>
+            {t('Download as PDF')}
           </Menu.Item>
         )}
 
