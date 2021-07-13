@@ -172,6 +172,8 @@ numpy==1.19.4
 #   pandas
 #   pyarrow
 packaging==20.4
+# via apache-superset
+openpyxl==3.0.7
 # via bleach
 pandas==1.2.2
 # via apache-superset
