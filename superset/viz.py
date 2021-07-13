@@ -622,7 +622,14 @@ class BaseViz:
     def get_csv(self) -> Optional[str]:
         df = self.get_df_payload()["df"]  # leverage caching logic
         include_index = not isinstance(df.index, pd.RangeIndex)
-        return csv.df_to_escaped_csv(df, index=include_index, **config["CSV_EXPORT"])
+        result = csv.df_to_escaped_csv(df, index=include_index, **config["CSV_EXPORT"])
+        return result
+
+    def get_xlsx(self) -> Optional[str]:
+        df = self.get_df_payload()["df"]  # leverage caching logic
+        include_index = not isinstance(df.index, pd.RangeIndex)
+        result = csv.df_to_escaped_xlsx(df, index=include_index, **config["CSV_EXPORT"])
+        return result
 
     def get_data(self, df: pd.DataFrame) -> VizData:
         return df.to_dict(orient="records")

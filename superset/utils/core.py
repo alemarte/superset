@@ -167,6 +167,7 @@ class ChartDataResultFormat(str, Enum):
     CSV = "csv"
     JSON = "json"
     XML = "xml"
+    XLSX = "xlsx"
 
 
 class ChartDataResultType(str, Enum):

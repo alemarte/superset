@@ -575,6 +575,15 @@ class XmlResponse(Response):  # pylint: disable=too-many-ancestors
     default_mimetype = "text/xml"
 
 
+class XlsxResponse(Response):  # pylint: disable=too-many-ancestors
+    """
+    Override Response to take into account xlsx encoding from config.py
+    """
+
+    charset = "utf-8"
+    default_mimetype = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+
+
 def check_ownership(obj: Any, raise_if_false: bool = True) -> bool:
     """Meant to be used in `pre_update` hooks on models to enforce ownership
 

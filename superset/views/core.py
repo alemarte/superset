@@ -121,7 +121,7 @@ from superset.views.base import (
     json_errors_response,
     json_success,
     validate_sqlatable,
-    XmlResponse,
+    XmlResponse, XlsxResponse,
 )
 from superset.views.utils import (
     _deserialize_results_payload,
@@ -439,6 +439,9 @@ class Superset(BaseSupersetView):  # pylint: disable=too-many-public-methods
     ) -> FlaskResponse:
         if response_type == utils.ChartDataResultFormat.CSV:
             return CsvResponse(viz_obj.get_csv(), headers=generate_download_headers("csv"))
+
+        if response_type == utils.ChartDataResultFormat.XLSX:
+            return XlsxResponse(viz_obj.get_xlsx(), headers=generate_download_headers("xlsx"))
 
         if response_type == utils.ChartDataResultFormat.XML:
             payload = viz_obj.get_payload()

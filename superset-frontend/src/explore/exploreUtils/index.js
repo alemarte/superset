@@ -77,9 +77,16 @@ export function getAnnotationJsonUrl(slice_id, form_data, isNative, force) {
 export function getURIDirectory(endpointType = 'base') {
   // Building the directory part of the URI
   if (
-    ['full', 'json', 'csv', 'xml', 'query', 'results', 'samples'].includes(
-      endpointType,
-    )
+    [
+      'full',
+      'json',
+      'csv',
+      'xlsx',
+      'xml',
+      'query',
+      'results',
+      'samples',
+    ].includes(endpointType)
   ) {
     return '/superset/explore_json/';
   }
@@ -176,6 +183,9 @@ export function getExploreUrl({
   if (endpointType === 'csv') {
     search.csv = 'true';
   }
+  if (endpointType === 'xlsx') {
+    search.xlsx = 'true';
+  }
   if (endpointType === 'xml') {
     search.xml = 'true';
   }
@@ -240,7 +250,7 @@ export const buildV1ChartDataPayload = ({
 };
 
 export const getLegacyEndpointType = ({ resultType, resultFormat }) => {
-  const formats = ['csv', 'xml'];
+  const formats = ['csv', 'xlsx', 'xml'];
   return formats.includes(resultFormat) ? resultFormat : resultType;
 };
 

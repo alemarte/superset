@@ -18,6 +18,8 @@ import re
 import urllib.request
 from typing import Any, Dict, Optional
 from urllib.error import URLError
+from io import BytesIO
+
 
 import pandas as pd
 
@@ -68,6 +70,23 @@ def df_to_escaped_csv(df: pd.DataFrame, **kwargs: Any) -> Any:
 
     return df.to_csv(**kwargs)
 
+
+def df_to_escaped_xlsx(df: pd.DataFrame, **kwargs: Any) -> Any:
+    escape_values = lambda v: escape_value(v) if isinstance(v, str) else v
+
+    # Escape csv headers
+    df = df.rename(columns=escape_values)
+
+    # Escape csv rows
+    df = df.applymap(escape_values)
+
+    output = BytesIO()
+    writer = pd.ExcelWriter(output)
+    df.to_excel(writer, **kwargs)  # plus any **kwargs
+    writer.save()
+    processed_data = output.getvalue()
+
+    return processed_data
 
 def get_chart_csv_data(
     chart_url: str, auth_cookies: Optional[Dict[str, str]] = None
