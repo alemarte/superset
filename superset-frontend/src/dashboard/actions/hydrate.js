@@ -320,7 +320,11 @@ export const hydrateDashboard = (dashboardData, chartData, datasourcesData) => (
     });
   }
 
-  const { roles } = getState().user;
+  let { roles } = getState().user;
+
+  if (!roles) {
+    roles = {};
+  }
 
   return dispatch({
     type: HYDRATE_DASHBOARD,

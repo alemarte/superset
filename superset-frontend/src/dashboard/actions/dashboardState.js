@@ -74,14 +74,15 @@ export function fetchFaveStar(id) {
       .then(({ json }) => {
         if (json.count > 0) dispatch(toggleFaveStar(true));
       })
-      .catch(() =>
-        dispatch(
-          addDangerToast(
-            t(
-              'There was an issue fetching the favorite status of this dashboard.',
-            ),
-          ),
-        ),
+      .catch(
+        () => {},
+        // dispatch(
+        //   addDangerToast(
+        //     t(
+        //       'There was an issue fetching the favorite status of this dashboard.',
+        //     ),
+        //   ),
+        // ),
       );
   };
 }
